@@ -44,6 +44,7 @@ void Board::movingPhase() {
   display current player's action
  */
 void Board::playTurn() {
+
     if (playerTurn) {
         cout << "Player B Turn (playing B ~ Black)" << endl;
     } else {

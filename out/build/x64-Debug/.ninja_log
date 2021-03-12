@@ -1,6 +1,7 @@
 # ninja log v5
-0	765	6372105876356923	CMakeFiles/BoardGame.dir/main.cpp.obj	b192cdb9edc957f3
-4	767	6372105876356923	CMakeFiles/BoardGame.dir/Board.cpp.obj	87e9661f304238c6
-767	1164	6372105880215100	BoardGame.exe	5c74ca96ef2894bf
 0	840	6372107688172943	CMakeFiles/BoardGame.dir/main.cpp.obj	b192cdb9edc957f3
+4	767	6372105876356923	CMakeFiles/BoardGame.dir/Board.cpp.obj	87e9661f304238c6
 842	1136	6372107690760695	BoardGame.exe	5c74ca96ef2894bf
+4	795	6372140992765566	CMakeFiles/BoardGame.dir/Board.cpp.obj	87e9661f304238c6
+1	798	6372140992776126	CMakeFiles/BoardGame.dir/main.cpp.obj	b192cdb9edc957f3
+798	1009	6372140994636076	BoardGame.exe	5c74ca96ef2894bf

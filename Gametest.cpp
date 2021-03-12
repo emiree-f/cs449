@@ -16,16 +16,14 @@ struct BoardTest : testing::Test
 
 TEST_F(BoardTest, placingMode) {
 
-<<<<<<< HEAD
     ASSERT_FALSE(millBoard->isPlacingMode());
     millBoard->setPlacingMode(true);
     ASSERT_TRUE(millBoard->isPlacingMode());
-=======
-    ASSERT_FALSE(mBoard->isPlacingMode());
 
+    ASSERT_FALSE(mBoard->isPlacingMode());
     mBoard->setPlacingMode(true);
     ASSERT_TRUE(mBoard->isPlacingMode());
->>>>>>> 3c8901ca6c52ab8c347f1c4336b979135765b3ac
+
 }
 
 TEST_F(BoardTest, GameMode) {
@@ -33,7 +31,6 @@ TEST_F(BoardTest, GameMode) {
     mBoard->setGameMode(true);
     ASSERT_TRUE(mBoard->isGameMode());
 }
-
 
 TEST_F(BoardTest, PlayerTurn) {
 
