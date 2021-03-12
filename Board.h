@@ -19,6 +19,10 @@ private:
     bool gameMode = false;
     bool playerTurn = false; 
 public:
+    const string getBoard(int row, int column) const {
+        return mBoard[row][column];
+    }
+
     const int *getMovingBIts() const {
         return MoveBits;
     }
