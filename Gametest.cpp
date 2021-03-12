@@ -1,5 +1,7 @@
+#include "pch.h"
 #include <gtest/gtest.h>
 #include "../Board.h"
+#include "../Board.cpp"
 
 struct BoardTest : testing::Test
 {
@@ -13,6 +15,16 @@ struct BoardTest : testing::Test
         delete mBoard;
     }
 };
+
+TEST_F(BoardTest, EmptyBoard) {
+    std::string expected = "(O)";
+    mBoard->buildBoard();
+    for (int row = 0; row < 7; row++) {
+        for (int column = 0; column < 7; column++) {
+            ASSERT_EQ(expected, mBoard->getBoard(row, column));
+        }
+    }
+}
 
 TEST_F(BoardTest, placingMode) {
 
