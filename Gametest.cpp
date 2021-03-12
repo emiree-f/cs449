@@ -1,38 +1,45 @@
-
+#include <gtest/gtest.h>
 #include "../Board.h"
 
 struct BoardTest : testing::Test
 {
-    Board* millBoard;
+    Board* mBoard;
     BoardTest()
     {
-        millBoard = new Board;
+        mBoard = new Board;
     }
     virtual ~BoardTest()
     {
-        delete millBoard;
+        delete mBoard;
     }
 };
 
 TEST_F(BoardTest, placingMode) {
 
+<<<<<<< HEAD
     ASSERT_FALSE(millBoard->isPlacingMode());
     millBoard->setPlacingMode(true);
     ASSERT_TRUE(millBoard->isPlacingMode());
+=======
+    ASSERT_FALSE(mBoard->isPlacingMode());
+
+    mBoard->setPlacingMode(true);
+    ASSERT_TRUE(mBoard->isPlacingMode());
+>>>>>>> 3c8901ca6c52ab8c347f1c4336b979135765b3ac
 }
 
 TEST_F(BoardTest, GameMode) {
-    ASSERT_FALSE(millBoard->isGameMode());
-    millBoard->setGameMode(true);
-    ASSERT_TRUE(millBoard->isGameMode());
+    ASSERT_FALSE(mBoard->isGameMode());
+    mBoard->setGameMode(true);
+    ASSERT_TRUE(mBoard->isGameMode());
 }
 
 
 TEST_F(BoardTest, PlayerTurn) {
 
-    ASSERT_FALSE(millBoard->isPlayerTurn());
-    millBoard->setPlayerTurn(true);
-    ASSERT_TRUE(millBoard->isPlayerTurn());
+    ASSERT_FALSE(mBoard->isPlayerTurn());
+    mBoard->setPlayerTurn(true);
+    ASSERT_TRUE(mBoard->isPlayerTurn());
 }
 
 TEST_F(BoardTest, PlayerTurn) {
