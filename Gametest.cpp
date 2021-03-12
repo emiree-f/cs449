@@ -65,6 +65,44 @@ TEST_F(BoardTest, PlaceMode) {
     ASSERT_TRUE(millBoard->SetPlacingMode());
 }
 
+
+
+TEST_F(BoardTest, ValidMove) {
+    ASSERT_FALSE(mBoard->validate());
+    mBoard->validate(int row, int col);
+    ASSERT_TRUE(mBoard->validate());
+}
+
+TEST_F(BoardTest, ValidMove) {
+    ASSERT_FALSE(millBoard->validate());
+   millBoard->validate(int row, int col);
+    ASSERT_TRUE(millBoard->validate());
+}
+
+ TEST_F(BoardTest, PlaceGame) {
+    ASSERT_FALSE(mBoard->placeGame());
+    mBoard->placeGame(int row, int col);
+    ASSERT_TRUE(mBoard->placeGame());
+}
+
+TEST_F(BoardTest, PlaceGame) {
+    ASSERT_FALSE(millBoard->placeGame());
+   millBoard->placeGame(int row, int col);
+    ASSERT_TRUE(millBoard->placeGame());
+}
+
+ TEST_F(BoardTest, PlayType) {
+    ASSERT_FALSE(mBoard->playType());
+    mBoard->playType(int row, int col);
+    ASSERT_TRUE(mBoard->playType());
+}
+
+TEST_F(BoardTest, PlayType) {
+    ASSERT_FALSE(millBoard->playType());
+   millBoard-playType(int row, int col)
+    ASSERT_TRUE(millBoard->playType());
+}
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
