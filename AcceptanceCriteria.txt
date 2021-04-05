@@ -1,0 +1,340 @@
+1: Setting up a game
+User Story: As a player I want to be able to create a new game of Nine Men's Morris
+
+AC 1.1 Successful creation of a new game
+Given the program not currently running
+When the user runs the program to begin a new game
+And a new game object is successfully created
+And a board is created with 24 locations
+And 2 players are created, 1 black and 1 white, each with 9 unplayed pieces
+Then a new game has been successfully created
+And the user is asked to choose who will play first
+testSuccessfulGameCreation()
+
+AC 1.2 Unsuccessful game creation: new game error
+Given the program not currently running
+When the user runs the program to begin a new game
+And a new game object is not created
+Then a new game has not been successfully created
+And an error is printed
+testGameObjectFailure()
+
+AC 1.3 Unsuccessful game creation: new board error
+Given the program not currently running
+When the user runs the program to begin a new game
+And a new game object is successfully created
+And a board is not created
+Then a new game has not been successfully created
+And an error is printed
+testBoardObjectFailure()
+
+AC 1.4 Unsuccessful game creation: new player(s) error
+Given the program not currently running
+When the user runs the program to begin a new game
+And a new game object is successfully created
+And a board is created with 24 locations
+And 2 players, 1 black and 1 white, each with 9 unplayed pieces, are not created
+Then a new game has not been successfully created
+And an error is printed
+testPlayerObjectFailure()
+
+2: Choosing player's turn
+User Story: As a player I want to be able to choose my turn
+
+2.1 black's turn first
+Given the beginning of a new game
+When the option for black is selected
+Then the first turn will be set to black
+testblackTurnFirst()
+
+2.2 white's turn first
+Given the beginning of a new game
+When the option for white is selected
+Then the first turn will be set to white
+testwhiteTurnFirst()
+
+3: Placing a piece
+User story: As a player, I want to be able to place pieces on the board during phase 1
+
+3.1 Successful piece placement by current player
+Given an ongoing game
+And the current player has unplayed pieces remaining
+When the current player picks a valid, unoccupied location
+Then the location becomes occupied by the current player's piece
+And checks if a mill is created
+And it is now the other player's turn
+testSuccessfulPlacement()
+
+3.2 Unsuccessful piece placement: invalid location
+Given an ongoing game
+And the current player has unplayed pieces remaining
+When the current player picks an invalid location
+Then an error message is output
+And the turn does not change
+testNoPlacementInvalidLocation()
+
+3.3 Unsuccessful piece placement: occupied location
+Given an ongoing game
+And the current player has unplayed pieces remaining
+When the current player picks a valid, occupied location
+Then an error message is output
+And the turn does not change
+testNoPlacementOccupiedLocation()
+
+4: Moving a piece
+User Story: As a player, I want to be able to move my pieces during phase 2
+
+4.1 Successful piece movement by current player
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 or more pieces on the board
+When the current player picks a valid location occupied by their piece to move from
+And picks a valid, unoccupied location to move to
+And the new location is adjacent to the previous location
+Then the new location becomes occupied by the current player's piece
+And the previous location becomes unoccupied by the current player's piece
+And checks if a mill is created
+And it is now the other player's turn
+testSuccessfulMovement()
+
+4.2 Unsuccessful piece movement: invalid move from location
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 or more pieces on the board
+When the current player picks an invalid location to move from
+Then an error message is output
+And the turn does not change
+testNoMovementInvalidMoveFromLocation()
+
+4.3 Unsuccessful piece movement: unoccupied location to move from
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 or more pieces on the board
+When the current player picks a valid, unoccupied location to move from
+Then an error message is output
+And the turn does not change
+testNoMovementUnoccupiedMoveFromLocation()
+
+4.4 Unsuccessful piece movement: location to move from occupied by other player
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 or more pieces on the board
+When the current player picks a valid location that is occupied by the other player to move from
+Then an error message is output
+And the turn does not change
+testNoMovementMoveFromLocationOccupiedByOtherPlayer()
+
+4.5 Unsuccessful piece movement: invalid move to location
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 or more pieces on the board
+When the current player picks a valid location occupied by their piece to move from
+And picks an invalid location to move to
+Then an error message is output
+And the turn does not change
+testNoMovementInvalidMoveToLocation()
+
+4.6 Unsuccessful piece movement: unoccupied move to location
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 or more pieces on the board
+When the current player picks a valid location occupied by their piece to move from
+And picks a valid, unoccupied location to move to
+Then an error message is output
+And the turn does not change
+testNoMovementUnoccupiedMoveToLocation()
+
+4.7 Unsuccessful piece movement: location to move to occupied by other player
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 or more pieces on the board
+When the current player picks a valid location occupied by their piece to move from
+And picks a valid location that is occupied by the other player to move to
+Then an error message is output
+And the turn does not change
+testNoMovementMoveToLocationOccupiedByOtherPlayer()
+
+4.8 Unsuccessful piece movement: nonadjacent locations
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 or more pieces on the board
+When the current player picks a valid location occupied by their piece to move from
+And picks a valid, unoccupied location to move to
+And the new location is not adjacent to the previous location
+Then an error message is output
+And the turn does not change
+testNoMovementNonadjacentLocationsSelected()
+
+5: Flying a piece
+Tests will be the same as for moving a piece except no adjacency requirement
+User Story: As a player, I want to be able to fly a piece during phase 3 (if applicable)
+
+5.1 Successful piece flying by current player
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 pieces on the board
+When the current player picks a valid location occupied by their piece to fly from
+And picks a valid, unoccupied location to fly to
+Then the new location becomes occupied by the current player's piece
+And the previous location becomes unoccupied by the current player's piece
+And checks if a mill is created
+And it is now the other player's turn
+testSuccessfulFlying()
+
+5.2 Unsuccessful piece flying: invalid move from location
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 pieces on the board
+When the current player picks an invalid location to fly from
+Then an error message is output
+And the turn does not change
+testNoFlyingInvalidMoveFromLocation()
+
+5.3 Unsuccessful piece flying: unoccupied location to fly from
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 pieces on the board
+When the current player picks a valid, unoccupied location to fly from
+Then an error message is output
+And the turn does not change
+testNoFlyingUnoccupiedFlyFromLocation()
+
+5.4 Unsuccessful piece flying: location to fly from occupied by other player
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 pieces on the board
+When the current player picks a valid location that is occupied by the other player to fly from
+Then an error message is output
+And the turn does not change
+testNoFlyingFlyFromLocationOccupiedByOtherPlayer()
+
+5.5 Unsuccessful piece flying: invalid fly to location
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 pieces on the board
+When the current player picks a valid location occupied by their piece to fly from
+And picks an invalid location to fly to
+Then an error message is output
+And the turn does not change
+testNoFlyingInvalidFlyToLocation()
+
+5.6 Unsuccessful piece flying: unoccupied fly to location
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 pieces on the board
+When the current player picks a valid location occupied by their piece to fly from
+And picks a valid, unoccupied location to fly to
+Then an error message is output
+And the turn does not change
+testNoFlyingUnoccupiedFlyToLocation()
+
+5.7 Unsuccessful piece flying: location to fly to occupied by other player
+Given an ongoing game
+And the current player has no unplayed pieces remaining
+And the current player has 3 pieces on the board
+When the current player picks a valid location occupied by their piece to fly from
+And picks a valid location that is occupied by the other player to fly to
+Then an error message is output
+And the turn does not change
+testNoFlyingFlyToLocationOccupiedByOtherPlayer()
+
+6: Removing an opponent's piece
+User story: As a player who created a mill, I want to be able to remove one of my opponent's pieces
+
+6.1 Successful piece removal
+Given an ongoing game
+And the current player just created a mill (3 adjacent pieces) by placing, moving, or flying
+When the current player picks a valid location occupied by their opponent's piece to remove
+And the piece selected is not part of a mill
+Then the opponent's piece is removed from the board
+And the location becomes unoccupied
+And it becomes the next player's turn
+testSuccessfulRemoval()
+
+6.2 Unsuccessful piece removal: invalid location
+Given an ongoing game
+And the current player just created a mill (3 adjacent pieces) by placing, moving, or flying
+When the current player picks an invalid location to remove
+Then an error message is output
+And the turn does not change
+testNoRemovalInvalidLocation()
+
+6.3 Unsuccessful piece removal: unoccupied location
+Given an ongoing game
+And the current player just created a mill (3 adjacent pieces) by placing, moving, or flying
+When the current player picks a valid location to remove that is unoccupied
+Then an error message is output
+And the turn does not change
+testNoRemovalInvalidLocation()
+
+6.4 Unsuccessful piece removal: location occupied by current player
+Given an ongoing game
+And the current player just created a mill (3 adjacent pieces) by placing, moving, or flying
+When the current player picks a valid location to remove that is occupied by themselves
+Then an error message is output
+And the turn does not change
+testNoRemovalLocationOccupiedByCurrentPlayer()
+
+6.5 Unsuccessful piece removal: piece selected is part of a mill
+Given an ongoing game
+And the current player just created a mill (3 adjacent pieces) by placing, moving, or flying
+When the current player picks a valid location occupied by their opponent's piece to remove
+And the piece selected is part of a mill
+Then an error message is output
+And the turn does not change
+testNoRemovalPiecePartOfMill()
+
+7: Determining if the game is over
+User Story: As a player, I need to know if the game is over after each move
+
+7.1 A win by black when white has 2 pieces remaining
+Given an ongoing game where white has 3 pieces and black has 3 or more pieces remaining
+And it is black’s turn
+When black makes a valid move to form a mill and removes one of white’s pieces
+And white has 2 pieces remaining
+Then the game is over
+And black wins
+testBlackWinWhenWhiteHas2Pieces()
+
+7.2 A win by black when white has no legal moves remaining
+Given an ongoing game where both have 3 or more pieces remaining
+And it is black’s turn
+When black makes a valid move
+And white cannot make any more valid moves
+Then the game is over
+And black wins
+testBlackWinWhenWhiteHasNoMoves()
+
+7.3 A win by white when black has 2 pieces remaining
+Given an ongoing game where black has 3 pieces and white has 3 or more pieces remaining
+And it is white’s turn
+When white makes a valid move to form a mill and removes one of black’s pieces
+And black has 2 pieces remaining
+Then the game is over
+And white wins
+testWhiteWinWhenBlackHas2Pieces()
+
+7.4 A win by white when black has no legal moves remaining
+Given an ongoing game where both have 3 or more pieces remaining
+And it is white’s turn
+When white makes a valid move
+And black cannot make any more valid moves
+Then the game is over
+And white wins
+testWhiteWinWhenBlackHasNoMoves()
+
+7.5 A continuing game after a black move
+Given an ongoing game where both have 3 or more pieces remaining
+And it is black’s turn
+When black makes a valid move that does not result in white having 2 pieces or not being able to make valid moves
+Then the game continues
+And it becomes white’s turn
+testGameContinueAfterBlack()
+
+7.6 A continuing game after a white move
+Given an ongoing game where both have 3 or more pieces remaining
+And it is white’s turn
+When white makes a valid move that does not result in black having 2 pieces or not being able to make valid moves
+Then the game continues
+And it becomes black’s turn
+testGameContinueAfterWhite()
