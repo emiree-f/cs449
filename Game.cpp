@@ -26,5 +26,11 @@ void Game::play_nextTurn() {
 			<< ((!currentTurnBlack) ? "Black" : "White")<< " piece"; //remove when GUI added
 		currentBoard.remove_piece(opposingPlayer);
 	}
-	switch_currentTurn();
+	if (opposingPlayer->get_unplayed() == 0 && opposingPlayer->get_onboard() == 2) { //game over
+		switch_isGameOver();
+		std::cout << ((currentTurnBlack) ? "Black" : "White") << " wins, game over" << std::endl; //remove when GUI added
+	}
+	else {
+		switch_currentTurn();
+	}
 };

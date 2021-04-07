@@ -10,10 +10,10 @@ public:
         std::string setMill3, std::string setMill4, std::string setAdjacents);
     bool is_adjacent(std::string checkLocation);
     void set_occupier(Player* setOccupier) { occupier = setOccupier; }
-    std::string get_possibleMill1_a() const { return possibleMill1[0]; }
-    std::string get_possibleMill1_b() const { return possibleMill1[1]; }
-    std::string get_possibleMill2_a() const { return possibleMill2[0]; }
-    std::string get_possibleMill2_b() const { return possibleMill2[1]; }
+    std::string get_possibleMill1a() const { return possibleMill1[0]; }
+    std::string get_possibleMill1b() const { return possibleMill1[1]; }
+    std::string get_possibleMill2a() const { return possibleMill2[0]; }
+    std::string get_possibleMill2b() const { return possibleMill2[1]; }
     Player* get_occupier() const { return occupier; }
 private:
     std::string name;

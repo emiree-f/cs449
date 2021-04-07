@@ -76,9 +76,9 @@ void Board::remove_piece(Player* removedPlayer) {
 bool Board::is_mill(std::string checkLocation) {
 	Player* occupier = grid[checkLocation].get_occupier();
 	bool mill1 = false, mill2 = false;
-	mill1 = ((occupier == grid[grid[checkLocation].get_possibleMill1_a()].get_occupier())
-		&& (occupier == grid[grid[checkLocation].get_possibleMill1_b()].get_occupier()));
-	mill2 = ((occupier == grid[grid[checkLocation].get_possibleMill2_a()].get_occupier())
-		&& (occupier == grid[grid[checkLocation].get_possibleMill2_b()].get_occupier()));
+	mill1 = ((occupier == grid[grid[checkLocation].get_possibleMill1a()].get_occupier())
+		&& (occupier == grid[grid[checkLocation].get_possibleMill1b()].get_occupier()));
+	mill2 = ((occupier == grid[grid[checkLocation].get_possibleMill2a()].get_occupier())
+		&& (occupier == grid[grid[checkLocation].get_possibleMill2b()].get_occupier()));
 	return (mill1 || mill2);
 }
