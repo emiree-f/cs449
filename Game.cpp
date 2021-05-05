@@ -1,36 +1,47 @@
-#include <iostream> //remove when GUI added
 #include "Game.h"
 
-Game::Game(bool firstTurn) {
-	currentTurnBlack = firstTurn;
+TestGUI::Game::Game()
+{
+	black.set_Name("Black");
+	white.set_Name("White");
 	currentBoard.initialize_board();
 }
-void Game::play_nextTurn() {
-	Player* currentPlayer = (currentTurnBlack) ? &black : &white;
-	Player* opposingPlayer = (currentTurnBlack) ? &white : &black;
-	std::string updatedLocation;
-	if (currentPlayer->get_unplayed() != 0) {
-		std::cout << std::endl << ((currentTurnBlack) ? "Black" : "White") << " player place piece"; //remove when GUI added
-		updatedLocation = currentBoard.place_piece(currentPlayer);
-	}
-	else if (currentPlayer->get_unplayed() == 0 && currentPlayer->get_onboard() >= 3) {
-		std::cout << std::endl << ((currentTurnBlack) ? "Black" : "White") << " player move piece"; //remove when GUI added
-		updatedLocation = currentBoard.move_piece(currentPlayer);
-	}
-	else if (currentPlayer->get_unplayed() == 0 && currentPlayer->get_onboard() == 3) {
-		std::cout << std::endl << ((currentTurnBlack) ? "Black" : "White") << " player fly piece"; //remove when GUI added
-		updatedLocation = currentBoard.fly_piece(currentPlayer);
-	}
-	if (currentBoard.is_mill(updatedLocation)) {
-		std::cout << std::endl << ((currentTurnBlack) ? "Black" : "White") << " player remove "
-			<< ((!currentTurnBlack) ? "Black" : "White")<< " piece"; //remove when GUI added
-		currentBoard.remove_piece(opposingPlayer);
-	}
-	if (opposingPlayer->get_unplayed() == 0 && opposingPlayer->get_onboard() == 2) { //game over
-		switch_isGameOver();
-		std::cout << ((currentTurnBlack) ? "Black" : "White") << " wins, game over" << std::endl; //remove when GUI added
-	}
-	else {
-		switch_currentTurn();
-	}
-};
+
+inline void TestGUI::Game::set_Occupied(System::String^ placeLocation, Player^ placingPlayer) {
+	currentBoard.set_LocationOccupied(placeLocation, placingPlayer);
+}
+
+void TestGUI::Game::set_Unoccupied(System::String^ emptyLocation)
+{
+	currentBoard.set_LocationUnoccupied(emptyLocation);
+}
+
+void TestGUI::Game::set_startingPlayer(System::String^ starter)
+{
+	startingPlayer = (starter == black.get_Name()) ? %black : %white;
+}
+
+TestGUI::Player^ TestGUI::Game::get_Occupier(System::String^ checkLocation)
+{
+	return currentBoard.get_LocationOccupier(checkLocation);
+}
+
+TestGUI::Player^ TestGUI::Game::get_Opponent(Player^ currentPlayer)
+{
+	return (currentPlayer == % black) ? % white : % black;
+}
+
+bool TestGUI::Game::check_IsMill(System::String^ checkLocation)
+{
+	return currentBoard.is_mill(checkLocation);
+}
+
+bool TestGUI::Game::check_IsAdjacent(System::String^ location1, System::String^ location2)
+{
+	return currentBoard.is_adjacent(location1, location2);
+}
+
+bool TestGUI::Game::check_AdjacentsAllOccupied(System::String^ checkLocation)
+{
+	return currentBoard.adjacents_AllOccupied(checkLocation);
+}

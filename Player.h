@@ -1,14 +1,21 @@
 #pragma once
-#include <string>
 
-class Player {
-public:
-	void decrement_unplayed() { unplayed--; }
-	void increment_onboard() { onboard++; }
-	void decrement_onboard() { onboard--; }
-	int get_unplayed() const { return unplayed; }
-	int get_onboard() const { return onboard; }
-private:
-	int unplayed = 9;
-	int onboard = 0;
-};
+namespace TestGUI {
+	public ref class Player {
+	public:
+		void decrement_unplayed() { unplayed--; }
+		void increment_onboard() { onboard++; }
+		void decrement_onboard() { onboard--; }
+		void increment_removed() { removed++; }
+		void set_Name(System::String^ setName) { name = setName; }
+		int get_unplayed() { return unplayed; }
+		int get_onboard() { return onboard; }
+		int get_removed() { return removed; }
+		System::String^ get_Name() { return name; }
+	private:
+		System::String^ name;
+		int unplayed = 9;
+		int onboard = 0;
+		int removed = 0;
+	};
+}

@@ -1,26 +1,28 @@
 #pragma once
-#include <string>
-#include <set>
 #include "Player.h"
 
-class Location {
-public:
-    Location();
-    Location(std::string setName, std::string setMill1, std::string setMill2, 
-        std::string setMill3, std::string setMill4, std::string setAdjacents);
-    bool is_adjacent(std::string checkLocation);
-    void set_occupier(Player* setOccupier) { occupier = setOccupier; }
-    std::string get_possibleMill1a() const { return possibleMill1[0]; }
-    std::string get_possibleMill1b() const { return possibleMill1[1]; }
-    std::string get_possibleMill2a() const { return possibleMill2[0]; }
-    std::string get_possibleMill2b() const { return possibleMill2[1]; }
-    Player* get_occupier() const { return occupier; }
-private:
-    std::string name;
-    std::set<std::string> adjacents;
-    std::string possibleMill1[2], possibleMill2[2];
-    void set_possibleMills(std::string setStr1, std::string setStr2,
-        std::string setStr3, std::string setStr4);
-    void set_adjacents(std::string setString);
-    Player* occupier = NULL;
-};
+namespace TestGUI {
+	public ref class Location {
+    public:
+        Location() {};
+        Location(System::String^ setName, System::String^ setMill1, System::String^ setMill2,
+            System::String^ setMill3, System::String^ setMill4, System::String^ setAdjacents);
+        bool is_adjacent(System::String^ checkLocation);
+        void set_occupier(Player^ setOccupier) { occupier = setOccupier; }
+        void set_unoccupied() { occupier = nullptr; }
+        System::String^ get_possibleMill1a() { return possibleMill1[0]; }
+        System::String^ get_possibleMill1b() { return possibleMill1[1]; }
+        System::String^ get_possibleMill2a() { return possibleMill2[0]; }
+        System::String^ get_possibleMill2b() { return possibleMill2[1]; }
+        System::Collections::Generic::List<System::String^> adjacents;
+        Player^ get_occupier()  { return occupier; }
+    private:
+        System::String^ name;
+        System::Collections::Generic::List<System::String^>
+            possibleMill1, possibleMill2;
+        void set_possibleMills(System::String^ setStr1, System::String^ setStr2,
+            System::String^ setStr3, System::String^ setStr4);
+        void set_adjacents(System::String^ setAdjacents);
+        Player^ occupier;
+	};
+}
