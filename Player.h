@@ -12,6 +12,7 @@ namespace TestGUI {
 		int get_onboard() { return onboard; }
 		int get_removed() { return removed; }
 		System::String^ get_Name() { return name; }
+		System::Collections::Generic::List<System::String^> occupied;
 	private:
 		System::String^ name;
 		int unplayed = 9;

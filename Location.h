@@ -18,8 +18,7 @@ namespace TestGUI {
         Player^ get_occupier()  { return occupier; }
     private:
         System::String^ name;
-        System::Collections::Generic::List<System::String^>
-            possibleMill1, possibleMill2;
+        System::Collections::Generic::List<System::String^> possibleMill1, possibleMill2;
         void set_possibleMills(System::String^ setStr1, System::String^ setStr2,
             System::String^ setStr3, System::String^ setStr4);
         void set_adjacents(System::String^ setAdjacents);

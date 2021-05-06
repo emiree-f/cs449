@@ -18,6 +18,7 @@ namespace TestGUI {
 		bool check_IsMill(System::String^ checkLocation);
 		bool check_IsAdjacent(System::String^ location1, System::String^ location2);
 		bool check_AdjacentsAllOccupied(System::String^ checkLocation);
+		bool check_HasNoValidMoves(Player^ thisPlayer);
 	private:
 		System::String^ nextEvent;
 		Player black;

@@ -758,6 +758,7 @@ System::Void TestGUI::GameBoardUI::play_nextTurn(System::Windows::Forms::Button^
 			onboardIndicatorWhite->Text = currentPlayer->get_onboard().ToString();
 		}
 		currentGame->set_Occupied(thisButton->Text, currentPlayer);
+		currentPlayer->occupied.Add(thisButton->Text);
 	}
 
 	//move piece
@@ -795,8 +796,10 @@ System::Void TestGUI::GameBoardUI::play_nextTurn(System::Windows::Forms::Button^
 			return System::Void();
 		}
 		currentGame->set_Unoccupied(moveOrFlyFromLocation->Text);
+		currentPlayer->occupied.Remove(moveOrFlyFromLocation->Text);
 		moveOrFlyFromLocation->UseVisualStyleBackColor = true;
 		currentGame->set_Occupied(thisButton->Text, currentPlayer);
+		currentPlayer->occupied.Add(thisButton->Text);
 		thisButton->BackColor =
 			(currentPlayer->get_Name() == "Black") ? Color::Black : Color::White;
 	}
@@ -824,8 +827,10 @@ System::Void TestGUI::GameBoardUI::play_nextTurn(System::Windows::Forms::Button^
 			return System::Void();
 		}
 		currentGame->set_Unoccupied(moveOrFlyFromLocation->Text);
+		currentPlayer->occupied.Remove(moveOrFlyFromLocation->Text);
 		moveOrFlyFromLocation->UseVisualStyleBackColor = true;
 		currentGame->set_Occupied(thisButton->Text, currentPlayer);
+		currentPlayer->occupied.Add(moveOrFlyFromLocation->Text);
 		thisButton->BackColor =
 			(currentPlayer->get_Name() == "Black") ? Color::Black : Color::White;
 	}
@@ -859,11 +864,13 @@ System::Void TestGUI::GameBoardUI::play_nextTurn(System::Windows::Forms::Button^
 			removedIndicatorWhite->Text = opposingPlayer->get_removed().ToString();
 		}
 		currentGame->set_Unoccupied(thisButton->Text);
+		opposingPlayer->occupied.Remove(thisButton->Text);
 		thisButton->UseVisualStyleBackColor = true;
 	}
 
 	//check if game is over
-	if (opposingPlayer->get_unplayed() == 0 && opposingPlayer->get_onboard() == 2) {
+	if (opposingPlayer->get_unplayed() == 0 && 
+	(opposingPlayer->get_onboard() == 2 || currentGame->check_HasNoValidMoves(opposingPlayer))) {
 		String^ winner = currentPlayer->get_Name();
 		MessageBox::Show("Game Over, " + winner + " wins!", "Game Over", MessageBoxButtons::OK,
 			MessageBoxIcon::Information);
@@ -883,7 +890,7 @@ System::Void TestGUI::GameBoardUI::play_nextTurn(System::Windows::Forms::Button^
 	if (opposingPlayer->get_unplayed() != 0) {
 		currentGame->set_nextEvent("place piece");
 	}
-	else if (opposingPlayer->get_unplayed() == 0 && opposingPlayer->get_onboard() >= 3) {
+	else if (opposingPlayer->get_unplayed() == 0 && opposingPlayer->get_onboard() > 3) {
 		currentGame->set_nextEvent("move from");
 	}
 	else if (opposingPlayer->get_unplayed() == 0 && opposingPlayer->get_onboard() == 3) {

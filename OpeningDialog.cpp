@@ -4,7 +4,11 @@ inline System::Void TestGUI::OpeningDialog::Begin_Click(System::Object^ sender, 
 	String^ gameMode = "";
 	String^ firstTurn = "";
 	if (HumanvHuman->Checked) { gameMode = "Human"; }
-	else if (HumanvComputer->Checked) { gameMode = "Computer"; }
+	else if (HumanvComputer->Checked) { 
+		/*gameMode = "Computer"; */ //to be implemented
+		MessageBox::Show("Computer Mode Not Enabled, Please Select Human v. Human", "Error",
+			MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
 	else {
 		MessageBox::Show("Please select Game Mode", "Error: No Game Mode Selected",
 			MessageBoxButtons::OK, MessageBoxIcon::Error);

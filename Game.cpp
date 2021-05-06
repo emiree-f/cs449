@@ -38,3 +38,8 @@ bool TestGUI::Game::check_IsAdjacent(System::String^ location1, System::String^ 
 bool TestGUI::Game::check_AdjacentsAllOccupied(System::String^ checkLocation) {
 	return currentBoard.adjacents_AllOccupied(checkLocation);
 }
+
+bool TestGUI::Game::check_HasNoValidMoves(Player^ thisPlayer)
+{
+	return currentBoard.has_NoValidMoves(thisPlayer);
+}

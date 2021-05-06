@@ -12,7 +12,6 @@ void TestGUI::Board::initialize_board()
 	System::String^ mill3;
 	System::String^ mill4;
 	System::String^ adjacents;
-	validLocations = "";
 
 	while (inFile->Peek() > 0) {
 		line = inFile->ReadLine();
@@ -23,34 +22,8 @@ void TestGUI::Board::initialize_board()
 			adjacents += ("\n" + fields[i]);
 		}
 		grid.Add(name, gcnew Location(name, mill1, mill2, mill3, mill4, adjacents));
-		validLocations = (validLocations + name);
 	}
 	inFile->Close();
-
-}
-
-bool TestGUI::Board::validate_location(System::String^ validateLocation)
-{
-	throw gcnew System::NotImplementedException();
-	// TODO: insert return statement here
-}
-
-System::String^ TestGUI::Board::place_piece(Player^ placingPlayer)
-{
-	throw gcnew System::NotImplementedException();
-	// TODO: insert return statement here
-}
-
-System::String^ TestGUI::Board::move_piece(Player^ movingPlayer)
-{
-	throw gcnew System::NotImplementedException();
-	// TODO: insert return statement here
-}
-
-System::String^ TestGUI::Board::fly_piece(Player^ flyingPlayer)
-{
-	throw gcnew System::NotImplementedException();
-	// TODO: insert return statement here
 }
 
 TestGUI::Player^ TestGUI::Board::get_LocationOccupier(System::String^ checkLocation) {
@@ -64,11 +37,6 @@ inline void TestGUI::Board::set_LocationOccupied(System::String^ placeLocation, 
 void TestGUI::Board::set_LocationUnoccupied(System::String^ emptyLocation)
 {
 	grid[emptyLocation]->set_unoccupied();
-}
-
-void TestGUI::Board::remove_piece(Player^ removedPlayer)
-{
-	throw gcnew System::NotImplementedException();
 }
 
 bool TestGUI::Board::is_mill(System::String^ checkLocation)
@@ -94,6 +62,20 @@ bool TestGUI::Board::adjacents_AllOccupied(System::String^ checkLocation)
 
 	for (int i = 0; i < grid[checkLocation]->adjacents.Count; i++) {
 		if (grid[grid[checkLocation]->adjacents[i]]->get_occupier() == nullptr) {
+			return false;
+		}
+		else { check = true; }
+	}
+
+	return check;
+}
+
+bool TestGUI::Board::has_NoValidMoves(Player^ checkPlayer)
+{
+	bool check = false;
+
+	for (int i = 0; i < checkPlayer->occupied.Count; i++) {
+		if (!adjacents_AllOccupied(checkPlayer->occupied[i])) {
 			return false;
 		}
 		else { check = true; }
