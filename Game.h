@@ -7,8 +7,6 @@ namespace TestGUI {
 	public ref class Game {
 	public:
 		Game();
-		void switch_isGameOver() { gameOver = !gameOver; }
-		void switch_currentTurn() { currentTurnBlack = !currentTurnBlack; }
 		void set_nextEvent(System::String^ newNextEvent) { nextEvent = newNextEvent; }
 		void set_Occupied(System::String^ placeLocation, Player^ placingPlayer);
 		void set_Unoccupied(System::String^ emptyLocation);
@@ -20,11 +18,7 @@ namespace TestGUI {
 		bool check_IsMill(System::String^ checkLocation);
 		bool check_IsAdjacent(System::String^ location1, System::String^ location2);
 		bool check_AdjacentsAllOccupied(System::String^ checkLocation);
-		bool get_isGameOver() { return gameOver; }
-		bool get_currentTurn() { return currentTurnBlack; }
 	private:
-		bool gameOver = false;
-		bool currentTurnBlack;//true is Black, false is White
 		System::String^ nextEvent;
 		Player black;
 		Player white;
