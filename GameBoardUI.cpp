@@ -778,7 +778,7 @@ System::Void TestGUI::GameBoardUI::play_nextTurn(System::Windows::Forms::Button^
 		//player stays the same
 		turnIndicator->Text = currentPlayer->get_Name();
 		nextEventIndicator->Text = currentGame->get_nextEvent();
-		moveOrFlyFromLocation = thisButton->Text;
+		moveOrFlyFromLocation = thisButton;
 		return System::Void();
 	}
 	else if (currentGame->get_nextEvent() == "move to") {
@@ -788,26 +788,47 @@ System::Void TestGUI::GameBoardUI::play_nextTurn(System::Windows::Forms::Button^
 				"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			return System::Void();
 		}
-		if (!currentGame->check_IsAdjacent(moveOrFlyFromLocation, thisButton->Text)) {
+		if (!currentGame->check_IsAdjacent(moveOrFlyFromLocation->Text, thisButton->Text)) {
 			MessageBox::Show(
 				"You must move to an adjacent location.", "Error", 
 				MessageBoxButtons::OK, MessageBoxIcon::Error);
 			return System::Void();
 		}
-		currentGame->set_Unoccupied(moveOrFlyFromLocation);
+		currentGame->set_Unoccupied(moveOrFlyFromLocation->Text);
+		moveOrFlyFromLocation->UseVisualStyleBackColor = true;
 		currentGame->set_Occupied(thisButton->Text, currentPlayer);
+		thisButton->BackColor =
+			(currentPlayer->get_Name() == "Black") ? Color::Black : Color::White;
 	}
 
 	//fly piece
 	else if (currentGame->get_nextEvent() == "fly from") {
-	
+		if (currentGame->get_Occupier(thisButton->Text) != currentPlayer) {
+			MessageBox::Show(
+				"You must select a location you occupy to fly from.",
+				"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return System::Void();
+		}
 		currentGame->set_nextEvent("fly to");
 		//player stays the same
 		turnIndicator->Text = currentPlayer->get_Name();
 		nextEventIndicator->Text = currentGame->get_nextEvent();
+		moveOrFlyFromLocation = thisButton;
 		return System::Void();
 	}
-	else if (currentGame->get_nextEvent() == "fly to") {}
+	else if (currentGame->get_nextEvent() == "fly to") {
+		if (currentGame->get_Occupier(thisButton->Text) != nullptr) {
+			MessageBox::Show(
+				"Location is already occupied. Please select another location to place your piece.",
+				"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			return System::Void();
+		}
+		currentGame->set_Unoccupied(moveOrFlyFromLocation->Text);
+		moveOrFlyFromLocation->UseVisualStyleBackColor = true;
+		currentGame->set_Occupied(thisButton->Text, currentPlayer);
+		thisButton->BackColor =
+			(currentPlayer->get_Name() == "Black") ? Color::Black : Color::White;
+	}
 
 	//remove piece
 	else if (currentGame->get_nextEvent() == "remove piece") {
@@ -817,7 +838,7 @@ System::Void TestGUI::GameBoardUI::play_nextTurn(System::Windows::Forms::Button^
 				"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			return System::Void();
 		}
-		if (currentGame->check_IsMill(thisButton->Text)) {
+		if (currentGame->check_IsMill(thisButton->Text) && opposingPlayer->get_onboard() > 3) {
 			MessageBox::Show(
 				"You must select a location that is not part of a mill.",
 				"Error", MessageBoxButtons::OK, MessageBoxIcon::Error);

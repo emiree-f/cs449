@@ -44,7 +44,7 @@ namespace TestGUI {
 		Player^ currentPlayer;
 		Game^ currentGame;
 		bool turn1st;
-		String^ moveOrFlyFromLocation;
+		System::Windows::Forms::Button^ moveOrFlyFromLocation;
 		GameBoardUI(void)
 		{
 			InitializeComponent();
